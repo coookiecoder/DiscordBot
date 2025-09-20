@@ -1,6 +1,26 @@
 services:
   bot:
+    depends_on:
+      - database
+    container_name: bot
     build:
       context: bot
     restart: always
     env_file: .env
+
+  database:
+    container_name: database
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: default
+    volumes:
+      - database_data:/var/lib/postgresql/data
+
+networks:
+  internal:
+
+volumes:
+  database_data:

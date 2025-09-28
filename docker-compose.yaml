@@ -24,3 +24,8 @@ networks:
 
 volumes:
   database_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /database_data
+      o: bind
